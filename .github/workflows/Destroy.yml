@@ -26,27 +26,19 @@ jobs:
       AWS_REGION: "eu-central-1"
 
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v3
-      - name: Setup node
+      - name: 🔧 Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: ${{ env.GH_REGISTRY_URL }}
-      - name: Configure AWS credentials from DevOps account
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: 🔐 Configure AWS credentials from DevOps account
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
           role-skip-session-tagging: true
           aws-region: ${{ env.AWS_REGION }}
-      - name: 🔧 Build Angular App
+      - name: 🔧 Delete Demo Stack
         run: |
-            cd software/angular;npm ci;npm run build
-      - name: 🔧 Setup
-        run: |
-          cd infra
-          npm ci
-      - name: 🚀 AWS CDK Destroy
-        run: |
-          cd infra
-          npx cdk destroy --all --force
+          aws cloudformation delete-stack --stack-name InfraStack
+
+          
