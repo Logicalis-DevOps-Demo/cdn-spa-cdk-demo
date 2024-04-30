@@ -41,7 +41,7 @@ jobs:
       - name: 📂 Extract Artifact
         run : unzip "release-${{ inputs.ReleaseVersion}}.zip" -d ./
       - name: 🔐 Configure AWS credentials from DevOps account
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
           role-skip-session-tagging: true
@@ -54,4 +54,4 @@ jobs:
             cd deploy/infra
             echo -e "${{ env.BLUE }}[Info] ${{ env.NC }}Deploying CDK..."
             npx cdk deploy --all --require-approval never
-            echo -e "${{ env.GREEN }}[Success] ${{ env.NC }}CDK deploy success"          
+            echo -e "${{ env.GREEN }}[Success] ${{ env.NC }}CDK deploy success"
