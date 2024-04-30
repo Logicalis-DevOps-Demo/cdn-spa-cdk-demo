@@ -70,18 +70,12 @@ jobs:
           cp  ./infra/cdk.json ./deploy/infra/cdk.json
           cp  ./infra/tsconfig.json  ./deploy/infra/tsconfig.json
           zip "release-${{ steps.extract_version.outputs.version }}.zip" ./deploy/* -r
-      - name: 🏷 Create release
+      - name: 📤 🏷 Create and upload release
         id: create_release
-        uses: actions/create-release@v1.1.4
+        uses: softprops/action-gh-release@v2.0.4
         with:
           tag_name: ${{ steps.extract_version.outputs.version }}
           release_name: release-${{ steps.extract_version.outputs.version }}
           draft: false
           prerelease: false
-      - name: 📤 Upload Release Artifact
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release-${{ steps.extract_version.outputs.version }}.zip
-          asset_name: release-${{ steps.extract_version.outputs.version }}.zip
-          asset_content_type: application/zip
+          files: ./release-${{ steps.extract_version.outputs.version }}.zip
