@@ -1,0 +1,52 @@
+name: Destroy
+
+on:
+  workflow_dispatch:
+
+env:
+
+
+  GITHUB_ACTIONS_ROLE:   'githubIDP'
+  GH_REGISTRY_URL:       'https://npm.pkg.github.com'
+  RED:                   '\033[1;91m'
+  GREEN:                 '\033[1;92m'
+  BLUE:                  '\033[1;94m'
+  NC:                    '\033[0m'
+
+jobs:
+
+  deploy-infra:
+    name: 🚀 Destroy DevOps infra
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      AWS_ACCOUNT: "321160696139"
+      AWS_REGION: "eu-central-1"
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: ${{ env.GH_REGISTRY_URL }}
+      - name: Configure AWS credentials from DevOps account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
+          role-skip-session-tagging: true
+          aws-region: ${{ env.AWS_REGION }}
+      - name: 🔧 Build Angular App
+        run: |
+            cd software/angular;npm ci;npm run build
+      - name: 🔧 Setup
+        run: |
+          cd infra
+          npm ci
+      - name: 🚀 AWS CDK Destroy
+        run: |
+          cd infra
+          npx cdk destroy --all --force

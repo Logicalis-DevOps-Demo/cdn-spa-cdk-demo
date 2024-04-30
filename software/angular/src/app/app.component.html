@@ -1,0 +1,57 @@
+  
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+        <mat-icon *ngIf="!sidenav.opened">
+            menu
+        </mat-icon>
+        <mat-icon *ngIf="sidenav.opened">
+            close
+        </mat-icon>
+    </button>
+    <img class="header_logo" src="assets/angular2.png">
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+        <img class="avatar mat-elevation-z8" src="assets/AngularJS-Shield.svg" />
+
+        <h4 class="name">SPA-POC</h4>
+        <p class="designation">Angular PoC</p>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+        </button>
+        <button mat-button class="menu-button">
+            <mat-icon>info</mat-icon>
+            <span>About</span>
+        </button>
+
+        <mat-divider></mat-divider>
+
+        <button mat-button class="menu-button">
+            <mat-icon>help</mat-icon>
+            <span>Help</span>
+        </button>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8">
+          <ng-container *ngIf="(asyncTabs | async) === null">
+            Loading tabs...
+          </ng-container>
+          <mat-tab-group style="width: 100%;" >
+            <mat-tab label="BFF GET EndPoints Testing"><app-apicall></app-apicall></mat-tab>
+            <mat-tab label="DynamoDB CRUD Sample"><app-dynamodb-crud></app-dynamodb-crud></mat-tab>
+          </mat-tab-group>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

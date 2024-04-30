@@ -1,0 +1,87 @@
+name: Continous Integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main  # Lanzar automaticamente al realizar un push sobre rama main
+
+
+env:
+  ACTIONS_STEP_DEBUG: true
+  NODE_AUTH_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_ACTIONS_ROLE:   'githubIDP'
+  GH_REGISTRY_URL:       'https://npm.pkg.github.com'
+  RED:                   '\033[1;91m'
+  GREEN:                 '\033[1;92m'
+  BLUE:                  '\033[1;94m'
+  NC:                    '\033[0m'
+
+jobs:
+
+  CI-Workflow:
+    name: ⏭️ CI-Workflow-Example
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      AWS_ACCOUNT: "321160696139"
+      AWS_REGION: "eu-central-1"
+
+    steps:
+      - name: 🗂️ Checkout project
+        uses: actions/checkout@v3 
+      - name: 🔧 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: ${{ env.GH_REGISTRY_URL }}
+      - name: 🔐 Configure AWS credentials from DevOps account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
+          role-skip-session-tagging: true
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Extract version from package.json
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.2.1
+        with:
+          path: infra
+      - name: 🛠️ Install Dependencies 
+        run: |
+          cd infra;npm ci
+      - name: 🔧 Build Angular App
+        run: |
+          cd software/angular;npm ci;npm run build
+      - name: 🚀 CDK Synth 
+        run:  |
+          cd infra
+          npx cdk synth
+      - name: 📦 Generate CDK .zip artifact for deployment
+        run:  |
+          mkdir deploy
+          cp -R --parents ./software/angular/dist ./deploy
+          cp -R --parents ./infra/bin ./deploy
+          cp -R --parents ./infra/lib ./deploy
+          cp  ./infra/package.json ./deploy/infra/package.json
+          cp  ./infra/package-lock.json ./deploy/infra/package-lock.json
+          cp  ./infra/cdk.json ./deploy/infra/cdk.json
+          cp  ./infra/tsconfig.json  ./deploy/infra/tsconfig.json
+          zip "release-${{ steps.extract_version.outputs.version }}.zip" ./deploy/* -r
+      - name: 🏷 Create release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ steps.extract_version.outputs.version }}
+          release_name: release-${{ steps.extract_version.outputs.version }}
+          draft: false
+          prerelease: false
+      - name: 📤 Upload Release Artifact
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release-${{ steps.extract_version.outputs.version }}.zip
+          asset_name: release-${{ steps.extract_version.outputs.version }}.zip
+          asset_content_type: application/zip

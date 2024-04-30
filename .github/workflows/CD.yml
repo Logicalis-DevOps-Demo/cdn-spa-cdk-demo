@@ -1,0 +1,57 @@
+name: Continous Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      ReleaseVersion:
+        type: string
+env:
+
+
+  GITHUB_ACTIONS_ROLE:   'githubIDP'
+  GH_REGISTRY_URL:       'https://npm.pkg.github.com'
+  RED:                   '\033[1;91m'
+  GREEN:                 '\033[1;92m'
+  BLUE:                  '\033[1;94m'
+  NC:                    '\033[0m'
+
+jobs:
+
+  CI-Workflow:
+    name: ⏭️ CD-Workflow-Example
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      AWS_ACCOUNT: "321160696139"
+      AWS_REGION: "eu-central-1"
+
+    steps:
+      - name: 🔧 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: ${{ env.GH_REGISTRY_URL }}
+      - name: 📥 Download Release
+        uses: robinraju/release-downloader@v1.9
+        with:
+          tag: "${{ inputs.ReleaseVersion }}"
+          fileName: "release-${{ inputs.ReleaseVersion}}.zip"
+      - name: 📂 Extract Artifact
+        run : unzip "release-${{ inputs.ReleaseVersion}}.zip" -d ./
+      - name: 🔐 Configure AWS credentials from DevOps account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
+          role-skip-session-tagging: true
+          aws-region: ${{ env.AWS_REGION }}
+      - name: 🛠️ Install dependencies
+        run: |
+          cd deploy/infra;npm ci
+      - name: 🚀 AWS CDK deploy
+        run: |
+            cd deploy/infra
+            echo -e "${{ env.BLUE }}[Info] ${{ env.NC }}Deploying CDK..."
+            npx cdk deploy --all --require-approval never
+            echo -e "${{ env.GREEN }}[Success] ${{ env.NC }}CDK deploy success"          
