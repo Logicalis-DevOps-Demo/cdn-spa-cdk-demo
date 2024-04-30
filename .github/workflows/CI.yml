@@ -72,7 +72,7 @@ jobs:
           zip "release-${{ steps.extract_version.outputs.version }}.zip" ./deploy/* -r
       - name: 🏷 Create release
         id: create_release
-        uses: actions/create-release@v1
+        uses: actions/create-release@v1.1.4
         with:
           tag_name: ${{ steps.extract_version.outputs.version }}
           release_name: release-${{ steps.extract_version.outputs.version }}
