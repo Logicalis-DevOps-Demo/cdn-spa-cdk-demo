@@ -1,4 +1,4 @@
-name: Destroy
+name: Clear Demo
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ env:
 jobs:
 
   deploy-infra:
-    name: 🚀 Destroy DevOps infra
+    name: ⏭️ Clear Demo
 
     runs-on: ubuntu-latest
     permissions: write-all
@@ -26,11 +26,6 @@ jobs:
       AWS_REGION: "eu-central-1"
 
     steps:
-      - name: 🔧 Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: ${{ env.GH_REGISTRY_URL }}
       - name: 🔐 Configure AWS credentials from DevOps account
         uses: aws-actions/configure-aws-credentials@v4
         with:
