@@ -27,43 +27,19 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions: write-all
-
+    strategy:
+        fail-fast: false
+        matrix:
+          language: [ 'javascript'] # Añade los lenguajes que tu proyecto utiliza
+  
     steps:
       - name: 🗂️ Checkout project
         uses: actions/checkout@v4 
-      - name: 🔧 Setup node
-        uses: actions/setup-node@v4
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
         with:
-          node-version: 20
-          registry-url: ${{ env.GH_REGISTRY_URL }}
-      - name: 🔐 Configure AWS credentials from DevOps account
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
-          role-skip-session-tagging: true
-          aws-region: ${{ env.AWS_REGION }}
-      - name: Extract version from package.json
-        id: extract_version
-        uses: Saionaro/extract-package-version@v1.3.0
-        with:
-          path: infra
-      - name: 🛠️ Install Dependencies 
-        run: |
-          cd infra;npm ci
-      - name: 🔧 Build Angular App
-        run: |
-          cd software/angular;npm ci;npm run build
-      - name: 🚀 CDK Synth 
-        run:  |
-          cd infra
-          npx cdk synth
-      - name: Self sast-scan
-        uses: AppThreat/sast-scan-action@v1.0.0
-        with:
-          output: reports
-          type: nodejs
-      - name: Upload scan reports
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: sast-scan-reports
-          path: reports
+          languages: ${{ matrix.language }}
+  
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
