@@ -9,8 +9,10 @@ on:
 
 env:
   ACTIONS_STEP_DEBUG: true
-  NODE_AUTH_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+  NODE_AUTH_TOKEN:  ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN:     ${{ secrets.GITHUB_TOKEN }}
+  AWS_ACCOUNT:      ${{ secrets.AWS_ACCOUNT }}
+  AWS_REGION:       ${{ secrets.AWS_REGION }}
   GITHUB_ACTIONS_ROLE:   'githubIDP'
   GH_REGISTRY_URL:       'https://npm.pkg.github.com'
   RED:                   '\033[1;91m'
@@ -25,10 +27,6 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions: write-all
-
-    env:
-      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
       - name: 🗂️ Checkout project
