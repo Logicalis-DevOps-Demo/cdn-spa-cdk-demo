@@ -37,7 +37,7 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@master
         with:
             args: >
-              -Dsonar.organization=Logicalis-DevOps-Demo
+              -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
               -Dsonar.python.coverage.reportPaths=coverage.xml
               -Dsonar.sources=infra/lib/
