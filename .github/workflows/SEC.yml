@@ -29,7 +29,7 @@ jobs:
     permissions: write-all
   
     steps:
-        
+
       - name: 🗂️ Checkout project
         uses: actions/checkout@v4 
       
@@ -41,8 +41,7 @@ jobs:
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
               -Dsonar.python.coverage.reportPaths=coverage.xml
               -Dsonar.sources=infra/lib/
-              -Dsonar.test.exclusions=tests/**
-              -Dsonar.tests=tests/
+              -Dsonar.test.exclusions=infra/tests/**
               -Dsonar.verbose=true        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
