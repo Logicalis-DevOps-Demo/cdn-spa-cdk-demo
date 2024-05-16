@@ -41,7 +41,7 @@ jobs:
         with:
             node-version: 20
             registry-url: ${{ env.GH_REGISTRY_URL }}
-            
+
 
       - name: 🔐 Configure AWS credentials from DevOps account
         uses: aws-actions/configure-aws-credentials@v4
@@ -78,3 +78,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'test'
+          path: '.'
+          format: 'HTML'    
+          others: ''
+
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
