@@ -39,6 +39,7 @@ jobs:
             args: >
               -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
+              -Dsonar.sources=.
               -Dsonar.python.coverage.reportPaths=coverage.xml
               -Dsonar.test.exclusions=infra/tests/**
               -Dsonar.verbose=true        
