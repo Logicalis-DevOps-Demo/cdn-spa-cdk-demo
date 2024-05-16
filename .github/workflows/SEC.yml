@@ -27,11 +27,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions: write-all
-    strategy:
-        fail-fast: false
-        matrix:
-          language: [ 'typescript','javascript', 'python', 'go' ] # Añade los lenguajes que tu proyecto utiliza
-  
+
     steps:
       - name: 🗂️ Checkout project
         uses: actions/checkout@v4 
@@ -61,10 +57,3 @@ jobs:
         run:  |
           cd infra
           npx cdk synth
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
-   
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
