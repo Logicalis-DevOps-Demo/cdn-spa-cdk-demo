@@ -38,6 +38,7 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:
+            projectBaseDir: ./            
             args: >
               -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
