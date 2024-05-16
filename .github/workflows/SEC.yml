@@ -41,6 +41,7 @@ jobs:
         with:
             node-version: 20
             registry-url: ${{ env.GH_REGISTRY_URL }}
+            
 
       - name: 🔐 Configure AWS credentials from DevOps account
         uses: aws-actions/configure-aws-credentials@v4
@@ -77,4 +78,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
