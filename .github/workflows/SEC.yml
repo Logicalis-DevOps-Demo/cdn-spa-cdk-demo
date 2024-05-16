@@ -1,0 +1,61 @@
+name: Security&QA Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/*  # Lanzar automaticamente al realizar un push las ramas feature
+
+
+env:
+  ACTIONS_STEP_DEBUG: true
+  NODE_AUTH_TOKEN:       ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN:          ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_ACTIONS_ROLE:   'githubIDP'
+  GH_REGISTRY_URL:       'https://npm.pkg.github.com'
+  RED:                   '\033[1;91m'
+  GREEN:                 '\033[1;92m'
+  BLUE:                  '\033[1;94m'
+  NC:                    '\033[0m'
+
+jobs:
+
+  CI-Workflow:
+    name: ⏭️ Security-QA-Workflow-Example
+
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    env:
+      AWS_ACCOUNT: "321160696139"
+      AWS_REGION: "eu-central-1"
+
+    steps:
+      - name: 🗂️ Checkout project
+        uses: actions/checkout@v4 
+      - name: 🔧 Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: ${{ env.GH_REGISTRY_URL }}
+      - name: 🔐 Configure AWS credentials from DevOps account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.GITHUB_ACTIONS_ROLE }}
+          role-skip-session-tagging: true
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Extract version from package.json
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.3.0
+        with:
+          path: infra
+      - name: 🛠️ Install Dependencies 
+        run: |
+          cd infra;npm ci
+      - name: 🔧 Build Angular App
+        run: |
+          cd software/angular;npm ci;npm run build
+      - name: 🚀 CDK Synth 
+        run:  |
+          cd infra
+          npx cdk synth
