@@ -32,17 +32,15 @@ jobs:
 
       - name: 🗂️ Checkout project
         uses: actions/checkout@v4 
-      
+        with:
+            # Disabling shallow clone is recommended for improving relevancy of reporting
+            fetch-depth: 0      
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:
             args: >
               -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
-              -Dsonar.sources=.
-              -Dsonar.python.coverage.reportPaths=coverage.xml
-              -Dsonar.test.exclusions=infra/tests/**
-              -Dsonar.verbose=true        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
