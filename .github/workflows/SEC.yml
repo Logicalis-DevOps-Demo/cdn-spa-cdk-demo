@@ -34,6 +34,15 @@ jobs:
       
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
+        with:
+            args: >
+              -Dsonar.organization=Logicalis-DevOps-Demo
+              -Dsonar.projectKey=cdn-spa-cdk-demo
+              -Dsonar.python.coverage.reportPaths=coverage.xml
+              -Dsonar.sources=infra/lib/
+              -Dsonar.test.exclusions=tests/**
+              -Dsonar.tests=tests/
+              -Dsonar.verbose=true        
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
