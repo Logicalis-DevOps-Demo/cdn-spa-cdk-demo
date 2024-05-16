@@ -26,27 +26,14 @@ jobs:
     name: ⏭️ Security-QA-Workflow-Example
 
     runs-on: ubuntu-latest
-    permissions:
-      # required for all workflows
-      security-events: write
-
-      # required to fetch internal or private CodeQL packs
-      packages: read        
-    strategy:
-        fail-fast: false
-        matrix:
-          language: [ 'typescript'] # Añade los lenguajes que tu proyecto utiliza
+    permissions: write-all
   
     steps:
       - name: 🗂️ Checkout project
         uses: actions/checkout@v4 
       
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-  
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-            category: "/language:${{matrix.language}}"        
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   
