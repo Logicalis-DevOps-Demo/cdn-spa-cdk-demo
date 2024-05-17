@@ -30,14 +30,14 @@ export class ApiCallComponent implements OnInit {
   }
 
   showBody(){
-   this.service.getResult(this.endpoint.value).subscribe((data: Result) => this.resultadoObject = {
+   this.service.getResult(this.endpoint.value!).subscribe((data: Result) => this.resultadoObject = {
       message: data.message,
       time:  data.time,
      });
   }
 
   showResponse() {
-    this.service.getCompleteResponse(this.endpoint.value)
+    this.service.getCompleteResponse(this.endpoint.value!)
       // resp is of type `HttpResponse<Result>`
       .subscribe(resp => {
         // access the body directly, which is typed as `Config`.

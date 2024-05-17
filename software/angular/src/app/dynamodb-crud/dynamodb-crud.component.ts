@@ -32,7 +32,7 @@ export class DynamodbCRUDComponent implements OnInit {
 
 
   putUser(){
-    this.service.putUser(this.endpoint.value,this.body.value).subscribe((data: Users) => this.resultadoObject = {
+    this.service.putUser(this.endpoint.value!,this.body.value).subscribe((data: Users) => this.resultadoObject = {
        message: data.message,
        time:  data.time,
        path: data.path,
@@ -42,7 +42,7 @@ export class DynamodbCRUDComponent implements OnInit {
   }
 
   putUserCompleteResponse() {
-    this.service.putUserCompleteResponse(this.endpoint.value, this.body.value)
+    this.service.putUserCompleteResponse(this.endpoint.value!, this.body.value!)
       .subscribe(resp => {
         this.response = JSON.stringify(resp);
         this.resultado = JSON.stringify({ ...resp.body! });
@@ -51,7 +51,7 @@ export class DynamodbCRUDComponent implements OnInit {
 
 
   getUserCompleteResponse() {
-    this.service.getUserCompleteResponse(this.endpoint.value)
+    this.service.getUserCompleteResponse(this.endpoint.value!)
       .subscribe(resp => {
 
         var users: Users = { ...resp.body! };
@@ -62,7 +62,7 @@ export class DynamodbCRUDComponent implements OnInit {
   }
 
   deleteUserCompleteResponse() {
-    this.service.deleteUserCompleteResponse(this.endpoint.value, this.userId.value)
+    this.service.deleteUserCompleteResponse(this.endpoint.value!, this.userId.value!)
       .subscribe(resp => {
         this.response = JSON.stringify(resp);
         this.resultado = JSON.stringify({ ...resp.body! });
