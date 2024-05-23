@@ -51,11 +51,11 @@ jobs:
           path: infra
       - name: 🛠️ Install Dependencies 
         run: |
-          cd infra;npm ci
-          cd software/angular;npm ci
+          npm ci infra
+          npm ci software/angular
       - name: 🐞 Testing  
         run: |
-          cd software/angular;npm ci;npm test
+          npm test software/angular
       - name: 🔧 Build Angular App
         run: |
           cd software/angular;npm run build
