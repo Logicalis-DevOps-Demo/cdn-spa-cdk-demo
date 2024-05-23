@@ -51,8 +51,8 @@ jobs:
           path: infra
       - name: 🛠️ Install Dependencies 
         run: |
-          npm ci ./infra
-          npm ci ./software/angular
+          npm ci infra/package-lock.json
+          npm ci software/angular/package-lock.json
       - name: 🐞 Testing  
         run: |
           npm test software/angular
