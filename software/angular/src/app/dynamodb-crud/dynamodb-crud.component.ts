@@ -9,7 +9,6 @@ import { FormControl } from '@angular/forms';
   providers: [ DynamoDbService ],
 })
 
-
 export class DynamodbCRUDComponent implements OnInit {
   
   endpoint = new FormControl('');
@@ -22,14 +21,10 @@ export class DynamodbCRUDComponent implements OnInit {
   public usersTable: Users [] =[];
   displayedColumns: string[] = ['id', 'name', 'lastname'];
 
-
-
-
   constructor(private service: DynamoDbService) { }
 
   ngOnInit(): void {
   }
-
 
   putUser(){
     this.service.putUser(this.endpoint.value!,this.body.value).subscribe((data: Users) => this.resultadoObject = {
@@ -53,11 +48,9 @@ export class DynamodbCRUDComponent implements OnInit {
   getUserCompleteResponse() {
     this.service.getUserCompleteResponse(this.endpoint.value!)
       .subscribe(resp => {
-
         var users: Users = { ...resp.body! };
         var result = users.message;
         this.usersTable = JSON.parse(JSON.stringify(result)).Items;
-
       });
   }
 

@@ -34,28 +34,32 @@ describe('DynamodbCRUDComponent', () => {
     expect(component.resultadoObject?.message).toBeUndefined();
   });
 
-
   it('putUserCompleteResponse', () => {
     const fixture = TestBed.createComponent(DynamodbCRUDComponent);
     component = fixture.componentInstance;
     component.putUserCompleteResponse()
-    expect(component.resultadoObject?.message).toBeUndefined();
+    expect(component.response).toBeUndefined();
   });
-
 
   it('getUserCompleteResponse', () => {
     const fixture = TestBed.createComponent(DynamodbCRUDComponent);
     component = fixture.componentInstance;
     component.getUserCompleteResponse()
-    expect(component.resultadoObject?.message).toBeUndefined();
+    expect(component.usersTable).toBeDefined();
   });
-
 
   it('deleteUserCompleteResponse', () => {
     const fixture = TestBed.createComponent(DynamodbCRUDComponent);
     component = fixture.componentInstance;
     component.deleteUserCompleteResponse()
-    expect(component.resultadoObject?.message).toBeUndefined();
+    expect(component.resultado).toBeUndefined();
+  });
+
+  it('ngOnInit', () => {
+    const fixture = TestBed.createComponent(DynamodbCRUDComponent);
+    component = fixture.componentInstance;
+    component.ngOnInit()
+    expect(component.endpoint).toBeDefined();
   });
 
 
