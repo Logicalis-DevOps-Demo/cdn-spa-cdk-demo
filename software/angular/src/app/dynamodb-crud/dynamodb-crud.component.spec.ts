@@ -25,4 +25,13 @@ describe('DynamodbCRUDComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(DynamodbCRUDComponent);
+    component = fixture.componentInstance;
+    component.putUser()
+    expect(component.resultadoObject?.message).toBeUndefined();
+  });
+
 });
