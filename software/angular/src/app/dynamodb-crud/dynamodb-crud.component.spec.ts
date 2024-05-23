@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DynamodbCRUDComponent } from './dynamodb-crud.component';
 import { AppModule } from '../app.module';
+import {APP_BASE_HREF} from '@angular/common';
 
 describe('DynamodbCRUDComponent', () => {
   let component: DynamodbCRUDComponent;
@@ -11,7 +12,7 @@ describe('DynamodbCRUDComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ DynamodbCRUDComponent ],
       imports: [ AppModule ],
-
+      providers: [{provide: APP_BASE_HREF, useValue : '/' }]
     })
     .compileComponents();
   });
