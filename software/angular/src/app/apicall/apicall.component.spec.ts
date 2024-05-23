@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiCallComponent } from './apicall.component';
 import { AppModule } from '../app.module';
 
-describe('DynamodbCRUDComponent', () => {
+describe('ApiCallComponent', () => {
   let component: ApiCallComponent;
   let fixture: ComponentFixture<ApiCallComponent>;
 
@@ -22,8 +22,26 @@ describe('DynamodbCRUDComponent', () => {
     //fixture.detectChanges();
   });
 
-  
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('ngOnInit', () => {
+    component.ngOnInit()
+    expect(component.resultado).toBeUndefined();
+  });
+
+  it('showBody', () => {
+    component.showBody()
+    expect(component.response).toBeUndefined();
+  });
+
+
+  it('showResponse', () => {
+    component.showResponse()
+    expect(component.endpoint).toBeDefined();
+  });
+
 });
