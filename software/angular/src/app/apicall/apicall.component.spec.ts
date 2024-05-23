@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DynamodbCRUDComponent } from './dynamodb-crud.component';
+import { ApiCallComponent } from './apicall.component';
 import { AppModule } from '../app.module';
 
 describe('DynamodbCRUDComponent', () => {
-  let component: DynamodbCRUDComponent;
-  let fixture: ComponentFixture<DynamodbCRUDComponent>;
+  let component: ApiCallComponent;
+  let fixture: ComponentFixture<ApiCallComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamodbCRUDComponent ],
+      declarations: [ ApiCallComponent ],
       imports: [ AppModule ],
 
     })
@@ -17,7 +17,7 @@ describe('DynamodbCRUDComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DynamodbCRUDComponent);
+    fixture = TestBed.createComponent(ApiCallComponent);
     component = fixture.componentInstance;
     //fixture.detectChanges();
   });

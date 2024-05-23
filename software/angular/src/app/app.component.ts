@@ -4,11 +4,13 @@ import { ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs/operators';
+import packageJson from '../../../../infra/package.json';
 
 export interface ExampleTab {
   label: string;
   content: string;
 }
+
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,7 @@ export class AppComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   asyncTabs: Observable<ExampleTab[]>;
+  version: string = packageJson.version;
 
   constructor(private observer: BreakpointObserver) {
     this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
