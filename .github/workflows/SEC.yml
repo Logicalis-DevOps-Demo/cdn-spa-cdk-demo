@@ -68,7 +68,7 @@ jobs:
         run:  |
           cd infra
           npx cdk synth
-          
+
       - name: 🐞 Testing  
         run: |
           cd software/angular;npm test 
@@ -79,6 +79,7 @@ jobs:
             args: >
               -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
+              -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
