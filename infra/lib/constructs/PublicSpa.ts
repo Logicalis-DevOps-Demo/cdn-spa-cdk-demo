@@ -19,9 +19,6 @@ export class PublicSpa extends Construct {
     constructor(scope: Construct, id: string, props: PublicSpaProps) {
         super(scope, id);
 
-      //  var key = new Key(this, 'spaBucketKey', { enableKeyRotation: false,})
-      //  key.addAlias('spabucket');
-       // key.grantAdmin(new iam.AccountRootPrincipal())
 
         // Create a private S3 bucket
         const sourceBucket = new Bucket(this, `spa-bucket`, {

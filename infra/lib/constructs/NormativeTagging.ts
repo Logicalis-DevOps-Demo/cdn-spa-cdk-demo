@@ -1,6 +1,7 @@
 import { Construct, IConstruct } from 'constructs';
 import {Tags} from 'aws-cdk-lib';
 
+
 export interface NormativeTaggingProps {
     proveedor: string,
     entidadpagadora: string,
@@ -14,6 +15,8 @@ export interface NormativeTaggingProps {
     modulo?: string,
     capa?: string,
 }
+
+
 
 export class NormativeTagging extends Construct {
 
