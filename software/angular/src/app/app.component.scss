@@ -44,11 +44,17 @@ mat-sidenav-container {
     align-items: center;
     justify-content: flex-start;
     font-size: 1rem;
-
+    color: white;
     mat-icon {
+        color: white;
         margin-right: 8px;
     }
 }
+.menu-field{
+    color: white;
+
+}
+
 .header_logo{
 	display:table-cell;
 	text-align:center;
