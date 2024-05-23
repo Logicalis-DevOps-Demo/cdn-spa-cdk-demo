@@ -80,8 +80,8 @@ jobs:
               -Dsonar.organization=logicalis-devops-demo
               -Dsonar.projectKey=Logicalis-DevOps-Demo_cdn-spa-cdk-demo
               -Dsonar.javascript.lcov.reportPaths=./software/angular/coverage/lcov.info
-              -Dsonar.sources=infra;software
-              -Dsonar.tests=infra;software
+              -Dsonar.sources=infra,software
+              -Dsonar.tests=infra,software
               -Dsonar.exclusions=**/*.spec.ts, **/*test.ts,**/*.js,**/*constant.ts,**/*.scss,**/*interface.ts, *.html
               -Dsonar.test.inclusions=**/*.spec.ts
               -Dsonar.coverage.exclusions=**/*.js,software/angular/src/main.ts,software/angular/src/polyfills.ts,**/*environment*.ts,**/*module.ts,**/*.scss,**/*interface.ts, *.html              
