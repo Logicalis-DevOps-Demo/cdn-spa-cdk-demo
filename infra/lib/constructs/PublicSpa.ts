@@ -67,7 +67,7 @@ export class PublicSpa extends Construct {
        const cf = new Distribution(this, "CloudFrontDistribution", {
             defaultBehavior: { origin: new S3Origin(sourceBucket,{originAccessIdentity: originAccessIdentity}) },
             defaultRootObject: props.indexDocument,
-            noCachePolicy: noCachePolicy,
+            cachePolicy: noCachePolicy,
 
         });
 
