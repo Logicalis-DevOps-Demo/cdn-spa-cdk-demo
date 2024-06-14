@@ -1,6 +1,6 @@
 {
   "name": "spa-cdk-demo",
-  "version": "0.1.34",
+  "version": "0.1.35",
   "bin": {
     "infra": "bin/infra.js"
   },
