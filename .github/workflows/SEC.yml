@@ -57,8 +57,9 @@ jobs:
 
       - name: 🛠️ Install Dependencies 
         run: |
-          cd infra;npm ci
-
+          cd infra;npm ci;cd ..
+          cd software/angular;npm ci
+          
       - name: 🐞 Testing  Angular
         run: |
           cd software/angular;npm test 
