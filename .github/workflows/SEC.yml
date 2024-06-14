@@ -68,11 +68,14 @@ jobs:
           cd infra
           npx cdk synth
 
-      - name: 🐞 Testing  
+      - name: 🐞 Testing  Angular
         run: |
           cd software/angular;npm test 
-          cd infra;npm test 
-     
+
+      - name: 🐞 Testing  Infra
+        run: |
+          cd infra;npm test     
+          
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:

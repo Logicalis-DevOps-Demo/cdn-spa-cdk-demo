@@ -53,10 +53,15 @@ jobs:
         run: |
           cd infra;npm ci;cd ..
           cd software/angular;npm ci
-      - name: 🐞 Testing  
+
+      - name: 🐞 Testing  Angular
         run: |
-          cd software/angular;npm test 
+          cd software/angular;npm test
+
+      - name: 🐞 Testing  Infra
+        run: |
           cd infra;npm test
+          
       - name: 🔧 Build Angular App
         run: |
           cd software/angular;npm run build
