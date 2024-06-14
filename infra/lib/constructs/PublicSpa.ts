@@ -6,6 +6,7 @@ import {S3Origin} from "aws-cdk-lib/aws-cloudfront-origins";
 import { RemovalPolicy } from 'aws-cdk-lib';
 import {Key} from 'aws-cdk-lib/aws-kms'
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as cdk from 'aws-cdk-lib';
 
 export interface PublicSpaProps {
     name: string,
@@ -50,13 +51,23 @@ export class PublicSpa extends Construct {
                                                          destinationBucket: sourceBucket,
                                                         // serverSideEncryptionAwsKmsKeyId: key.keyId,
                                                          serverSideEncryption: ServerSideEncryption.AES_256,
-                                                         role:role}
+                                                         role:role
+                                                        }
         );
+
+        const noCachePolicy = new cdk.aws_cloudfront.CachePolicy(this, `noCachePolicy`, {
+            cachePolicyName: `noCachePolicy`,
+            defaultTtl: cdk.Duration.minutes(0),
+            minTtl: cdk.Duration.minutes(0),
+            maxTtl: cdk.Duration.minutes(0),
+      
+        });
 
        // Create the CloudFront Distribution
        const cf = new Distribution(this, "CloudFrontDistribution", {
             defaultBehavior: { origin: new S3Origin(sourceBucket,{originAccessIdentity: originAccessIdentity}) },
             defaultRootObject: props.indexDocument,
+            noCachePolicy: noCachePolicy,
 
         });
 
