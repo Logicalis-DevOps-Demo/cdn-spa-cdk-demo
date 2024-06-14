@@ -33,6 +33,34 @@ test('CloudfronDIst', () => {
  });
 
 
+ test('CloudfronDIst DefaultBeCache', () => {
+  const app = new cdk.App();
+    // WHEN
+  const stack = new Infra.InfraStack(app, 'MyTestStack');
+    // THEN
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties('AWS::CloudFront::Distribution', {
+      "DistributionConfig": {"DefaultCacheBehavior": { }}
+  });
+});
+
+test('CloudfronDIst Cache Policy', () => {
+  const app = new cdk.App();
+    // WHEN
+  const stack = new Infra.InfraStack(app, 'MyTestStack');
+    // THEN
+  const template = Template.fromStack(stack);
+
+  template.hasResourceProperties('AWS::CloudFront::CachePolicy', {
+    "CachePolicyConfig": { "Name": "noCachePolicy"}
+  });
+});
+
+
+
+
+
 // Clean up after all tests
 afterAll(() => {
   global.gc && global.gc()
