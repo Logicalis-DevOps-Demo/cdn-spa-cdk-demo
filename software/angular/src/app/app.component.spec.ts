@@ -43,4 +43,11 @@ describe('AppComponent', () => {
     expect(component.asyncTabs).toBeDefined();
   });
 
+
+  it(`ngAfterViewInit`, () => {
+    component.ngAfterViewInit();
+    expect(component.sidenav).toBeUndefined();
+  });
+
+
 });
