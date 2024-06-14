@@ -1,7 +1,7 @@
 import {Construct} from 'constructs';
 import {Bucket,BlockPublicAccess,BucketEncryption} from 'aws-cdk-lib/aws-s3';
 import {BucketDeployment,Source,ServerSideEncryption} from 'aws-cdk-lib/aws-s3-deployment';
-import {Distribution,OriginAccessIdentity} from 'aws-cdk-lib/aws-cloudfront';
+import {CachePolicy, Distribution,OriginAccessIdentity} from 'aws-cdk-lib/aws-cloudfront';
 import {S3Origin} from "aws-cdk-lib/aws-cloudfront-origins";
 import { RemovalPolicy } from 'aws-cdk-lib';
 import {Key} from 'aws-cdk-lib/aws-kms'
@@ -65,9 +65,9 @@ export class PublicSpa extends Construct {
 
        // Create the CloudFront Distribution
        const cf = new Distribution(this, "CloudFrontDistribution", {
-            defaultBehavior: { origin: new S3Origin(sourceBucket,{originAccessIdentity: originAccessIdentity}) },
+            defaultBehavior: { origin: new S3Origin(sourceBucket,{originAccessIdentity: originAccessIdentity}),cachePolicy: noCachePolicy},
             defaultRootObject: props.indexDocument,
-            cachePolicy: noCachePolicy,
+            
 
         });
 
