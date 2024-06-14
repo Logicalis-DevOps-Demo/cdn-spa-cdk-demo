@@ -89,7 +89,7 @@ jobs:
               -Dsonar.tests=infra,software
               -Dsonar.exclusions=**/*.spec.ts,**/*test.ts,**/*.js,**/*constant.ts,**/*.scss,**/*interface.ts,*.html,**/*config.ts
               -Dsonar.test.inclusions=**/*.spec.ts
-              -Dsonar.coverage.exclusions=**/*.js,software/angular/jest.config.ts,software/angular/src/main.ts,software/angular/src/polyfills.ts,**/*environment*.ts,**/*module.ts,**/*.scss,**/*interface.ts,*.html              
+              -Dsonar.coverage.exclusions=**/*.js,software/angular/jest.config.ts,software/angular/src/main.ts,software/angular/src/polyfills.ts,**/*environment*.ts,**/*module.ts,**/*.scss,**/*interface.ts,*.html,infra/*.ts              
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
