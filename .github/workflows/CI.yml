@@ -57,14 +57,15 @@ jobs:
       - name: 🐞 Testing  Angular
         run: |
           cd software/angular;npm test
-
-      - name: 🐞 Testing  Infra
-        run: |
-          cd infra;npm test
           
       - name: 🔧 Build Angular App
         run: |
           cd software/angular;npm run build
+
+      - name: 🐞 Testing  Infra
+        run: |
+          cd infra;npm test          
+
       - name: 🚀 CDK Synth 
         run:  |
           cd infra
