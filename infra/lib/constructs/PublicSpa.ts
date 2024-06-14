@@ -8,6 +8,7 @@ import {Key} from 'aws-cdk-lib/aws-kms'
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cdk from 'aws-cdk-lib';
 
+
 export interface PublicSpaProps {
     name: string,
     indexDocument: string,
@@ -67,8 +68,6 @@ export class PublicSpa extends Construct {
        const cf = new Distribution(this, "CloudFrontDistribution", {
             defaultBehavior: { origin: new S3Origin(sourceBucket,{originAccessIdentity: originAccessIdentity}),cachePolicy: noCachePolicy},
             defaultRootObject: props.indexDocument,
-            
-
         });
 
     }
