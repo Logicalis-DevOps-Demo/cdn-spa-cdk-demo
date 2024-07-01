@@ -1,10 +1,9 @@
 import {Construct} from 'constructs';
 import {Bucket,BlockPublicAccess,BucketEncryption} from 'aws-cdk-lib/aws-s3';
 import {BucketDeployment,Source,ServerSideEncryption} from 'aws-cdk-lib/aws-s3-deployment';
-import {CachePolicy, Distribution,OriginAccessIdentity} from 'aws-cdk-lib/aws-cloudfront';
+import { Distribution,OriginAccessIdentity} from 'aws-cdk-lib/aws-cloudfront';
 import {S3Origin} from "aws-cdk-lib/aws-cloudfront-origins";
 import { RemovalPolicy } from 'aws-cdk-lib';
-import {Key} from 'aws-cdk-lib/aws-kms'
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cdk from 'aws-cdk-lib';
 
