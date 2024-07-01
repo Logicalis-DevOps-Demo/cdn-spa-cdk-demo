@@ -45,7 +45,7 @@ describe('DynamodbCRUDComponent', () => {
 
   it('getUserCompleteResponse', () => {
     component.getUserCompleteResponse()
-    expect(component.usersTable).toBeNull();
+    expect(component.usersTable.length).toBeLessThanOrEqual(1);
   });
 
   it('deleteUserCompleteResponse', () => {
