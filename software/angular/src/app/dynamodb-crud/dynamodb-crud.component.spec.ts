@@ -38,6 +38,11 @@ describe('DynamodbCRUDComponent', () => {
     expect(component.response).toBeUndefined();
   });
 
+  it('putUserCompleteResponse', () => {
+    component.putUserCompleteResponse()
+    expect(component.resultado).toBeUndefined();
+  });
+
   it('getUserCompleteResponse', () => {
     component.getUserCompleteResponse()
     expect(component.usersTable).toBeDefined();
@@ -47,6 +52,11 @@ describe('DynamodbCRUDComponent', () => {
     component.getUserCompleteResponse()
     expect(component.usersTable.length).toBeLessThanOrEqual(1);
   });
+  it('getUserCompleteResponse', () => {
+    component.getUserCompleteResponse()
+    expect(component.usersTable).toEqual([]);
+  });
+
 
   it('deleteUserCompleteResponse', () => {
     component.deleteUserCompleteResponse()
