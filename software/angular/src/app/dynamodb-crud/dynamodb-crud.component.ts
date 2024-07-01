@@ -40,8 +40,8 @@ export class DynamodbCRUDComponent implements OnInit {
   putUserCompleteResponse() {
      this.service.putUserCompleteResponse(this.endpoint.value!, this.body.value!)
       .subscribe(resp => {
-    //    this.response = JSON.stringify(resp);
-     //   this.resultado = JSON.stringify({ ...resp.body! });
+        this.response = JSON.stringify(resp);
+        this.resultado = JSON.stringify({ ...resp.body! });
       }); 
   }
 
@@ -49,17 +49,17 @@ export class DynamodbCRUDComponent implements OnInit {
   getUserCompleteResponse() {
     this.service.getUserCompleteResponse(this.endpoint.value!)
       .subscribe(resp => {
-    //    let users: Users = { ...resp.body! };
-    //    let result = users.message;
-    //    this.usersTable = JSON.parse(JSON.stringify(result)).Items;
+        let users: Users = { ...resp.body! };
+        let result = users.message;
+        this.usersTable = JSON.parse(JSON.stringify(result)).Items;
       });
   }
 
   deleteUserCompleteResponse() {
     this.service.deleteUserCompleteResponse(this.endpoint.value!, this.userId.value!)
       .subscribe(resp => {
-     //   this.response = JSON.stringify(resp);
-      //  this.resultado = JSON.stringify({ ...resp.body! });
+        this.response = JSON.stringify(resp);
+        this.resultado = JSON.stringify({ ...resp.body! });
       });
   }
 
