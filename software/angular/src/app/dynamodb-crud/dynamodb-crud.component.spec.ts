@@ -43,6 +43,11 @@ describe('DynamodbCRUDComponent', () => {
     expect(component.usersTable).toBeDefined();
   });
 
+  it('getUserCompleteResponse', () => {
+    component.getUserCompleteResponse()
+    expect(component.usersTable).toBeNull();
+  });
+
   it('deleteUserCompleteResponse', () => {
     component.deleteUserCompleteResponse()
     expect(component.resultado).toBeUndefined();
