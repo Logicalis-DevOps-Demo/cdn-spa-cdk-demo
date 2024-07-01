@@ -24,6 +24,7 @@ export class DynamodbCRUDComponent implements OnInit {
   constructor(private service: DynamoDbService) { }
 
   ngOnInit(): void {
+    // this method is called when the component is loaded and no action needed here
   }
 
   putUser(){
@@ -48,8 +49,8 @@ export class DynamodbCRUDComponent implements OnInit {
   getUserCompleteResponse() {
     this.service.getUserCompleteResponse(this.endpoint.value!)
       .subscribe(resp => {
-        var users: Users = { ...resp.body! };
-        var result = users.message;
+        let users: Users = { ...resp.body! };
+        let result = users.message;
         this.usersTable = JSON.parse(JSON.stringify(result)).Items;
       });
   }

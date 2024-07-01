@@ -26,7 +26,7 @@ export class ApiCallComponent implements OnInit {
 
   ngOnInit(): void {
     
-        
+    // this method is called when the component is loaded and no action needed here    
   }
 
   showBody(){
